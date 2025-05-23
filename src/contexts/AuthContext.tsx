@@ -7,7 +7,7 @@ interface AuthContextType {
   logout: () => void;
 }
 
-const TOKEN_KEY = 'auth_token';
+export const TOKEN_KEY = 'auth_token';
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
@@ -23,7 +23,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     }
   }, []);
 
-  const login = async (email: string, password: string) => {
+  const login = async (_email: string, _password: string) => {
     return new Promise<void>((resolve) => {
       setTimeout(() => {
         const fakeToken = 'fake-jwt-token-' + Math.random().toString(36).substring(2);

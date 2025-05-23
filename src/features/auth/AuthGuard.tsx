@@ -1,11 +1,11 @@
-import { type ReactNode, useState } from "react";
+import { type FC, type ReactNode, useState } from "react";
 import { Navigate, useLocation } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
 type AuthGuardProps = {
   children: ReactNode;
 };
 
-export default function AuthGuard({ children }: AuthGuardProps) {
+export const AuthGuard: FC<AuthGuardProps> = ({ children }) => {
   const { isAuthenticated } = useAuth();
 
   const { pathname } = useLocation();
@@ -18,7 +18,7 @@ export default function AuthGuard({ children }: AuthGuardProps) {
     if (pathname !== requestedLocation) {
       setRequestedLocation(pathname);
     }
-    return <Navigate to={'/login'} />;
+    return <Navigate to={"/login"} />;
   }
 
   if (requestedLocation && pathname !== requestedLocation) {
@@ -27,4 +27,4 @@ export default function AuthGuard({ children }: AuthGuardProps) {
   }
 
   return <>{children}</>;
-}
+};

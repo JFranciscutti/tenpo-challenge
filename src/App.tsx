@@ -5,11 +5,12 @@ import {
   BrowserRouter as Router,
   Routes,
 } from "react-router-dom";
-import GuestGuard from "./features/auth/GuestGuard";
-import AuthGuard from "./features/auth/AuthGuard";
+import { GuestGuard } from "./features/auth/GuestGuard";
+import { AuthGuard } from "./features/auth/AuthGuard";
 import LoginPage from "./features/auth/login/LoginPage";
 import HomePage from "./features/home/HomePage";
 import Page404 from "./pages/Page404";
+import { DashboardLayout } from "./components/DashboardLayout";
 
 function App() {
   return (
@@ -29,7 +30,9 @@ function App() {
             path="/home"
             element={
               <AuthGuard>
-                <HomePage />
+                <DashboardLayout>
+                  <HomePage />
+                </DashboardLayout>
               </AuthGuard>
             }
           />
