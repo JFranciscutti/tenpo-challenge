@@ -1,54 +1,75 @@
-# React + TypeScript + Vite
+# Tenpo Challenge - React Application
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Esta aplicación es un desafío técnico que incluye:
+- Pantalla de login con fake-login
+- Home protegida que muestra una lista de 2000 elementos
+- Funcionalidad de logout
 
-Currently, two official plugins are available:
+## Tecnologías utilizadas
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- React 19
+- TypeScript
+- Vite
+- React Router Dom
+- Material UI
+- Axios
+- Context API para manejo de estado
 
-## Expanding the ESLint configuration
+## Características
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- **Autenticación**: Sistema de fake-login con almacenamiento de token en memoria
+- **Interfaz de usuario**: Diseño moderno y responsive con Material UI
+- **Lista de datos**: Visualización de 2000 elementos con paginación y búsqueda
+- **Arquitectura**: Separación clara entre contextos públicos y privados
+- **Configuración de Axios**: Interceptores para incluir automáticamente el token en las peticiones
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+## Requisitos previos
+
+- Node.js (versión 18 o superior)
+- pnpm
+
+## Instalación
+
+1. Clona este repositorio
+2. Instala las dependencias:
+   ```bash
+   pnpm install
+   ```
+
+## Ejecución
+
+Para iniciar la aplicación en modo desarrollo:
+
+```bash
+pnpm dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+La aplicación estará disponible en [http://localhost:5173](http://localhost:5173)
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## Estructura del proyecto
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
 ```
+src/
+├── api/                # Configuración de API y servicios
+├── components/         # Componentes reutilizables
+├── contexts/           # Contextos de React (AuthContext)
+├── features/           # Características de la aplicación
+│   ├── auth/           # Funcionalidades de autenticación
+│   └── home/           # Pantalla principal
+|__ pages/              # Páginas genéricas
+├── App.tsx             # Componente principal
+└── main.tsx            # Punto de entrada
+```
+
+## Documentación adicional
+
+### Persistencia del token
+
+El token se almacena en memoria dentro del contexto de autenticación. Se utilizan interceptores de Axios para incluir automáticamente el token en cada solicitud.
+
+### Arquitectura de rutas
+
+La aplicación implementa una estructura de rutas que separa el contexto público (login) del privado (home), permitiendo un crecimiento escalable.
+
+- **Rutas públicas**: Accesibles sin autenticación
+- **Rutas protegidas**: Requieren autenticación para ser accedidas

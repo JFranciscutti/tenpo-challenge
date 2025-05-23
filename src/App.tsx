@@ -9,7 +9,8 @@ import GuestGuard from "./features/auth/GuestGuard";
 import AuthGuard from "./features/auth/AuthGuard";
 import LoginPage from "./features/auth/login/LoginPage";
 import HomePage from "./features/home/HomePage";
-import Page404 from "./components/Page404";
+import Page404 from "./pages/Page404";
+
 function App() {
   return (
     <AuthProvider>
