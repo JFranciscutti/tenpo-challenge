@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ArrowRight, Eye, EyeOff, Mail, Lock } from "lucide-react";
+import { Eye, EyeOff, Mail, Lock } from "lucide-react";
 import { useForm } from "react-hook-form";
 import type { SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -120,10 +120,7 @@ export function LoginForm() {
           sx={{
             mt: 2,
             py: 1.5,
-            bgcolor: "#9333ea",
-            "&:hover": { bgcolor: "#7e22ce" },
           }}
-          endIcon={!isLoading && <ArrowRight size={20} />}
         >
           {isLoading ? (
             <>

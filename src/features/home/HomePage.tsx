@@ -1,19 +1,35 @@
-import { useAuth } from "../../contexts/AuthContext";
+import { DashboardLayout } from "../../components/DashboardLayout";
+import { Box, Card, CardContent, Typography, Grid } from "@mui/material";
 
 const HomePage = () => {
-  const { logout } = useAuth();
-
   return (
-    <div className="flex flex-col items-center justify-center h-screen">
-      <h1 className="text-2xl font-bold">HomePage</h1>
-      <button
-        type="button"
-        className="px-4 py-2 bg-primary hover:bg-primary-focus text-white rounded-md mt-4 font-medium"
-        onClick={logout}
-      >
-        Logout
-      </button>
-    </div>
+    <DashboardLayout>
+      <Box sx={{ mt: 2 }}>
+        <Typography variant="h4" gutterBottom>
+          Bienvenido a Tenpo Challenge
+        </Typography>
+        <Typography variant="body1" color="text.secondary" paragraph>
+          Esta es la página principal de la aplicación donde puedes ver toda la información.
+        </Typography>
+
+        <Grid container spacing={3} sx={{ mt: 2 }}>
+          {[1, 2, 3, 4].map((item) => (
+            <Grid sx={{ gridColumn: { xs: 'span 12', sm: 'span 6', md: 'span 3' } }} key={item}>
+              <Card elevation={2}>
+                <CardContent>
+                  <Typography variant="h6" gutterBottom>
+                    Tarjeta {item}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    Información de ejemplo para la tarjeta {item}
+                  </Typography>
+                </CardContent>
+              </Card>
+            </Grid>
+          ))}
+        </Grid>
+      </Box>
+    </DashboardLayout>
   );
 };
 
