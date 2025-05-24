@@ -11,14 +11,14 @@ export interface ArtistsResponse {
 
 class ArtistsRepository {
   keys = {
-    search_artists: (page: number, pageSize: number) => [
+    artists: (page: number, pageSize: number) => [
       "artists",
       page,
       pageSize,
     ],
   };
 
-  searchArtists = async (page: number, pageSize: number) => {
+  getArtists = async (page: number, pageSize: number) => {
     const offset = page * pageSize;
     // Filtramos acá por país y por tipo de artista para acotar la cantidad de resultados a 3037.
     // Sin filtros, la API devuelve mas de 2 millones de resultados.
@@ -34,14 +34,21 @@ class ArtistsRepository {
 
 const repo = new ArtistsRepository();
 
-export const useSearchArtistsQuery = (page: number, pageSize: number) => {
+// Con este hook logramos obtener mas de 3000 resultados, pero con paginación y cacheo de información.
+// con cada campo del hook logramos lo siguiente:
+// staleTime: tiempo que los datos se consideran frescos antes de revalidar
+// gcTime: tiempo que los datos permanecen en caché antes de eliminarse
+// placeholderData: muestra datos anteriores mientras se cargan los nuevos
+// refetchOnWindowFocus: desactiva la recarga al volver a la ventana
+// Así logramos mostrar una gran cantidad de datos de manera optimizada.
+
+export const useGetArtistsQuery = (page: number, pageSize: number) => {
   return useQuery({
-    queryKey: repo.keys.search_artists(page, pageSize),
-    queryFn: () => repo.searchArtists(page, pageSize),
+    queryKey: repo.keys.artists(page, pageSize),
+    queryFn: () => repo.getArtists(page, pageSize),
     staleTime: 5 * 60 * 1000,
     gcTime: 10 * 60 * 1000,
     placeholderData: (previousData) => previousData,
     refetchOnWindowFocus: false,
-    enabled: true,
   });
 };

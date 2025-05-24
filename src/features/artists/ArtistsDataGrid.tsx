@@ -1,12 +1,12 @@
 import { DataGrid, type GridColDef } from "@mui/x-data-grid";
 import { useState } from "react";
 import { Skeleton } from "@mui/material";
-import { useSearchArtistsQuery } from "../../api/artistsRepository";
+import { useGetArtistsQuery } from "../../api/artistsRepository";
 
 const ArtistsDataGrid = () => {
   const [page, setPage] = useState<number>(0);
   const [pageSize, setPageSize] = useState<number>(10);
-  const { data, isLoading, isFetching } = useSearchArtistsQuery(page, pageSize);
+  const { data, isLoading, isFetching } = useGetArtistsQuery(page, pageSize);
 
   const columns: GridColDef[] = [
     {
