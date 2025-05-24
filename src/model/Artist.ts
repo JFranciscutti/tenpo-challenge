@@ -6,6 +6,7 @@ export interface Artist {
   foundation_year: string;
   "life-span": {
     begin: string;
-    ended: string | null;
+    ended: boolean | null;
+    end: string | null;
   };
 }

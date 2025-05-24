@@ -42,8 +42,8 @@ const ArtistsDataGrid = () => {
       align: "center",
       headerAlign: "center",
       renderCell: (params) => {
-        return !!params.row["life-span"].ended
-          ? params.row["life-span"].ended
+        return params.row["life-span"].ended
+          ? params.row["life-span"].end
           : "Presente";
       },
       width: 200,
