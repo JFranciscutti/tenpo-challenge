@@ -1,17 +1,11 @@
-import axios from 'axios';
-import type { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
-import { TOKEN_KEY } from '../contexts/AuthContext';
-const config: AxiosRequestConfig = {
-  baseURL: import.meta.env.VITE_API_URL || 'http://localhost:8080/api',
-  headers: {
-    'Content-Type': 'application/json',
-  },
-  timeout: 30000,
-};
+import axios from "axios";
+import { TOKEN_KEY } from "../contexts/AuthContext";
 
-const axiosInstance: AxiosInstance = axios.create(config);
+export const httpClient = axios.create({
+  baseURL: "https://musicbrainz.org/ws/2",
+});
 
-axiosInstance.interceptors.request.use(
+httpClient.interceptors.request.use(
   (config) => {
     config.headers = config.headers || {};
     const token = localStorage.getItem(TOKEN_KEY);
@@ -25,29 +19,10 @@ axiosInstance.interceptors.request.use(
   }
 );
 
-axiosInstance.interceptors.response.use(
+httpClient.interceptors.response.use(
   (response) => response,
   (error) => {
-    console.error('Error en la solicitud HTTP:', error);
+    console.error("Error en la solicitud HTTP:", error);
     return Promise.reject(error);
   }
 );
-
-const httpClient = {
-  get: <T>(url: string, config?: AxiosRequestConfig): Promise<AxiosResponse<T>> => 
-    axiosInstance.get<T>(url, config),
-    
-  post: <T>(url: string, data?: any, config?: AxiosRequestConfig): Promise<AxiosResponse<T>> => 
-    axiosInstance.post<T>(url, data, config),
-    
-  put: <T>(url: string, data?: any, config?: AxiosRequestConfig): Promise<AxiosResponse<T>> => 
-    axiosInstance.put<T>(url, data, config),
-    
-  patch: <T>(url: string, data?: any, config?: AxiosRequestConfig): Promise<AxiosResponse<T>> => 
-    axiosInstance.patch<T>(url, data, config),
-    
-  delete: <T>(url: string, config?: AxiosRequestConfig): Promise<AxiosResponse<T>> => 
-    axiosInstance.delete<T>(url, config),
-};
-
-export default httpClient; 
